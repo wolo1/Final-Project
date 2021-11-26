@@ -30,8 +30,8 @@ public class SpawnWall : MonoBehaviour
     {
 
         wall = new GameObject("Mywall");
-        float z = 5;
-        float y = 5;
+        float z = 4;
+        float y = 4;
         int x = 0;
         float addZ = 0.25f;
         float addY = 0.12f;
@@ -41,7 +41,7 @@ public class SpawnWall : MonoBehaviour
 
         while (amountOfBoxes != 0)
         {
-            if (z > 10) // moving to the next row
+            if (z > 8) // moving to the next row
             {
 
                 z = 5;
@@ -56,7 +56,7 @@ public class SpawnWall : MonoBehaviour
                 FixedJoint fj = myCube.gameObject.AddComponent<FixedJoint>();
                 myCube.transform.parent = wall.gameObject.transform;
                 fj.connectedBody = wall.transform.GetChild(count).GetComponent<Rigidbody>();
-                fj.breakForce = 50;
+               // fj.breakForce = 10000;
 
                 amountOfBoxes--;
                 z++;
@@ -80,7 +80,7 @@ public class SpawnWall : MonoBehaviour
 
                     FixedJoint fj = myCube.gameObject.AddComponent<FixedJoint>();
                     fj.connectedBody = wall.transform.GetChild(count).GetComponent<Rigidbody>();
-                    fj.breakForce = 50;
+                    //fj.breakForce = 10000;
                     count++;
                 }
 
