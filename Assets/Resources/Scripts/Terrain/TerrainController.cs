@@ -55,6 +55,10 @@ public class TerrainController : MonoBehaviour {
     public Transform Level { get; set; }
     private Vector2 noiseRange;
 
+    private AudioSource audioData;
+    public GameObject fireTube;
+    public ParticleSystem explosion;
+
     private void Awake() {
         if (noise)
             noisePixels = GetGrayScalePixels(noise);
@@ -64,6 +68,7 @@ public class TerrainController : MonoBehaviour {
 
     private void Start() {
         InitialLoad();
+        Fire();
     }
 
     public void InitialLoad() {
@@ -85,6 +90,21 @@ public class TerrainController : MonoBehaviour {
     }
 
     private void Update() {
+        var inputDevices = new List<UnityEngine.XR.InputDevice>();
+        UnityEngine.XR.InputDevices.GetDevices(inputDevices);
+        bool triggerValue;
+
+        foreach (var device in inputDevices)
+        {
+            if (device.TryGetFeatureValue(UnityEngine.XR.CommonUsages.triggerButton, out triggerValue) && triggerValue)
+            {
+                Debug.Log("Trigger button is pressed.");
+                Fire();
+            }
+            Debug.Log(string.Format("Device name '{0}' has role '{1}'", device.name, device.role.ToString()));
+        }
+        
+        
         //save the tile the player is on
         Vector2 playerTile = TileFromPosition(playerTransform.localPosition);
         //save the tiles of all tracked objects in gameTransforms (including the player)
@@ -226,6 +246,17 @@ public class TerrainController : MonoBehaviour {
             grayscale2d.Add(grayscale.GetRange(i, texture2D.width));
 
         return grayscale2d.Select(a => a.ToArray()).ToArray();
+    }
+
+    public void Fire()
+    {
+        audioData = GameObject.Find("T90LP Green").GetComponent<AudioSource>();
+        audioData.Play(0);
+        //GameObject.Instantiate()
+        explosion = GameObject.Find("sprite_realExplosion_c_example").GetComponent<ParticleSystem>();
+        explosion.Play();
+
+        Debug.Log("started");
     }
 
 }
