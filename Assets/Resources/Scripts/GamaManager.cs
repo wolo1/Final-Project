@@ -91,7 +91,6 @@ public class GamaManager : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         PhotonNetwork.JoinOrCreateRoom("Room 1", new Photon.Realtime.RoomOptions() { MaxPlayers = 4 }, default);
-
     }
 
     public override void OnJoinedRoom()
@@ -106,6 +105,7 @@ public class GamaManager : MonoBehaviourPunCallbacks
 
         }
 
+        
         if (player == null)
         {
             Debug.LogError("<Color=Red><a>Missing</a></Color> playerPrefab Reference. Please set it up in GameObject 'Game Manager'", this);
@@ -114,7 +114,7 @@ public class GamaManager : MonoBehaviourPunCallbacks
         {
             Debug.LogFormat("We are Instantiating LocalPlayer from {0}", Application.loadedLevelName);
             // we're in a room. spawn a character for the local player. it gets synced by using PhotonNetwork.Instantiate
-            //PhotonNetwork.Instantiate(this.player.name, new Vector3(0.28f, 4.24f, 0.94f), Quaternion.identity, 0);
+            PhotonNetwork.Instantiate(this.player.name, new Vector3(0f, 0f, 0f), Quaternion.identity, 0);
         }
 
     }
