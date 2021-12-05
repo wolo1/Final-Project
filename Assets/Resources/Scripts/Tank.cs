@@ -50,6 +50,7 @@ public class Tank : MonoBehaviour
         var inputDevices = new List<UnityEngine.XR.InputDevice>();
         UnityEngine.XR.InputDevices.GetDevices(inputDevices);
         bool triggerValue;
+        Vector2 primary2DAxis;
         
         foreach (var device in inputDevices)
         {
@@ -62,6 +63,36 @@ public class Tank : MonoBehaviour
             }
         }
 
+        foreach (var device in inputDevices)
+        {
+            
+            if (device.TryGetFeatureValue(UnityEngine.XR.CommonUsages.primary2DAxis, out primary2DAxis))
+            {
+                //Debug.Log(primary2DAxis);
+                if (primary2DAxis.x > -1.0f && primary2DAxis.x < -0.5f && primary2DAxis.y > -0.3f && primary2DAxis.y < 0.3f)
+                {
+                    TurretTurnRight();
+                    
+                }
+                else if(primary2DAxis.x > 0.5f && primary2DAxis.x < 1.0f && primary2DAxis.y > -0.3f && primary2DAxis.y < 0.3f)
+                {
+                    TurretTurnLeft();
+                }
+                else if (primary2DAxis.x > -0.3f && primary2DAxis.x < 0.3f && primary2DAxis.y > 0.5f && primary2DAxis.y < 1.0f)
+                {
+                    MainGunTurnDown();
+                    Debug.Log("Down");
+                }
+                else if (primary2DAxis.x > -0.3f && primary2DAxis.x < 0.3f && primary2DAxis.y > -1.0f && primary2DAxis.y < -0.5f)
+                {
+                    MainGunTurnUp();
+                    Debug.Log("Up");
+                }
+
+            }
+        }
+
+        /*
         //myBall = new CreateBalls();
         /*
         string output = string.Empty;
@@ -86,7 +117,7 @@ public class Tank : MonoBehaviour
                   // Gas(position);
                 //Pedal(position.y);
             }
-        }*/
+        */
     }
     public bool isAllowFire()
     {
@@ -102,14 +133,14 @@ public class Tank : MonoBehaviour
 
             audioData.Play(0);
             //GameObject.Instantiate()
-            var explosionPar = GameObject.Instantiate(explosion, firePosition, Quaternion.identity, particleSystemManager.transform);
+            var explosionPar = GameObject.Instantiate(explosion, particleSystemManager.transform.position, Quaternion.identity, particleSystemManager.transform);
             explosionPar.transform.tag = "explosion";
             explosionPar.GetComponent<ParticleSystem>().Play();
-            var cannonBallTem = GameObject.Instantiate(cannonBall, firePosition,
+            var cannonBallTem = GameObject.Instantiate(cannonBall, particleSystemManager.transform.position,
                 Quaternion.Euler(90.0f, 0.0f, 0.0f), mainGun.transform);
             cannonBallTem.transform.tag = "cannonBall";
-            cannonBallTem.GetComponent<Rigidbody>().velocity = Vector3.forward * speedCannonBall;
-            tank.GetComponent<Rigidbody>().velocity = new Vector3(0.0f, -0.5f, -0.5f) * 10.0f;
+            cannonBallTem.GetComponent<Rigidbody>().velocity = particleSystemManager.transform.forward * speedCannonBall;
+            tank.GetComponent<Rigidbody>().velocity = (particleSystemManager.transform.forward + new Vector3(0.0f, 0.5f, 0.0f)) * -5.0f;
         }
         else
         {
@@ -162,7 +193,7 @@ public class Tank : MonoBehaviour
 
     public void MainGunTurnUp()
     {
-        if (mainGun.transform.localEulerAngles.x > 346.0f || mainGun.transform.localEulerAngles.x < 6.0f)
+        if (mainGun.transform.localEulerAngles.x > 346.0f || mainGun.transform.localEulerAngles.x < 6.1f)
         {
             mainGun.transform.localEulerAngles += new Vector3(-0.5f, 0.0f, 0.0f);
         }
@@ -171,7 +202,7 @@ public class Tank : MonoBehaviour
 
     public void MainGunTurnDown()
     {
-        if (mainGun.transform.localEulerAngles.x > 346.0f || mainGun.transform.localEulerAngles.x < 6.0f)
+        if (mainGun.transform.localEulerAngles.x > 346.0f || mainGun.transform.localEulerAngles.x < 6.1f)
         {
             mainGun.transform.localEulerAngles += new Vector3(0.5f, 0.0f, 0.0f);
         }
