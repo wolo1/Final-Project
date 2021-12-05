@@ -47,8 +47,8 @@ public class GamaManager : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
-        var tk = GameObject.Instantiate(this.tank, new Vector3(-10.3f, 8.9f, -10.26f), Quaternion.identity);
-        tk.transform.localEulerAngles = new Vector3(0.0f, 0.0f, 0.0f);
+        //var tk = GameObject.Instantiate(this.tank, new Vector3(-10.3f, 8.9f, -10.26f), Quaternion.identity);
+       // tk.transform.localEulerAngles = new Vector3(0.0f, 0.0f, 0.0f);
         Connect();
 
     }

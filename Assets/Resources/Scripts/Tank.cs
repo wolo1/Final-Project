@@ -13,7 +13,7 @@ public class Tank : MonoBehaviour
 
     private GameObject turret;
 
-    public GameObject gas;
+   // public GameObject gas;
 
 
     private float speedCannonBall = 100.0f;
@@ -34,11 +34,13 @@ public class Tank : MonoBehaviour
         Debug.Log(turret.name);
         particleSystemManager = GameObject.Find("ParticleSystemManager");
 
+        /*
         //starting rotations of the pedal
         gasOnStartX = gas.transform.rotation.x;
         gasOnStartY = gas.transform.rotation.y;
         gasOnStartZ = gas.transform.rotation.z;
         gasOnStartW = gas.transform.rotation.w;
+        */
     }
 
     // Update is called once per frame
@@ -61,6 +63,7 @@ public class Tank : MonoBehaviour
         }
 
         //myBall = new CreateBalls();
+        /*
         string output = string.Empty;
 
 
@@ -79,11 +82,11 @@ public class Tank : MonoBehaviour
 
                 output += "Touchpad/Joystick Position: " + position + "\n";
                 Debug.Log(output);
-                if (position.y != 0)
-                   Gas(position);
-                Pedal(position.y);
+                if (position.y != 0) ;
+                  // Gas(position);
+                //Pedal(position.y);
             }
-        }
+        }*/
     }
     public bool isAllowFire()
     {
@@ -116,6 +119,7 @@ public class Tank : MonoBehaviour
 
     }
 
+    /*
     public void Gas(Vector2 position)
     {
         float x = tank.transform.position.x;
@@ -143,6 +147,8 @@ public class Tank : MonoBehaviour
         else
             gas.transform.rotation = new Quaternion(x += yMove / 100, y, z, w);
     }
+
+    */
 
     public void TurretTurnLeft()
     {

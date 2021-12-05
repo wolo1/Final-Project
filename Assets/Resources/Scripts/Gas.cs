@@ -37,7 +37,7 @@ public class Gas : MonoBehaviour
                 output += "Touchpad/Joystick Position: " + position + "\n";
                 Debug.Log(output);
                 if (position.y != 0)
-                   // tankMovement(position);
+                   tankMovement(position);
                 pedalMovement(position.y);
                 return position;
             }
@@ -72,8 +72,8 @@ public class Gas : MonoBehaviour
        // int gainSpeed = 10;
       //  while (gainSpeed != 0)
         
-            tank.transform.position = new Vector3(x, y, z += position.y / 8);
-           
+        tank.transform.position = new Vector3(x, y, z += position.y / 8);
+        Debug.Log("MOVEMENT");   
        
 
        
