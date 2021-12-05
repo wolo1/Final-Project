@@ -32,6 +32,7 @@ public class Tank : MonoBehaviour
     {
         turret = mainGun.transform.parent.gameObject;
         Debug.Log(turret.name);
+        particleSystemManager = GameObject.Find("ParticleSystemManager");
 
         //starting rotations of the pedal
         gasOnStartX = gas.transform.rotation.x;
