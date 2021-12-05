@@ -3473,6 +3473,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &722227718 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1153684337135672, guid: cb4fd6a623385fb4fb454f9e6c5c6cbd,
+    type: 3}
+  m_PrefabInstance: {fileID: 1818840817}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &730881869
 GameObject:
   m_ObjectHideFlags: 0
@@ -3762,6 +3768,20 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 4995596874011164416}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &900500452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 900500447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8317f77d8366d540b5177ac6c1fac5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tank: {fileID: 722227718}
+  gas: {fileID: 900500447}
 --- !u!1 &905373670
 GameObject:
   m_ObjectHideFlags: 0
