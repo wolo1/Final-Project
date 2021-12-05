@@ -37,7 +37,7 @@ public class Gas : MonoBehaviour
                 output += "Touchpad/Joystick Position: " + position + "\n";
                 Debug.Log(output);
                 if (position.y != 0)
-                    tankMovement(position);
+                   // tankMovement(position);
                 pedalMovement(position.y);
                 return position;
             }
@@ -55,10 +55,10 @@ public class Gas : MonoBehaviour
         if (yMove == 0)
             transform.rotation = new Quaternion(gasOnStartX, gasOnStartY, gasOnStartZ, gasOnStartW);
         else
-            if (transform.rotation.x >= 53) // to prevent the pedal from flipping around, but doenst work for now
-                gas.transform.rotation = new Quaternion(x, y, z, w);
-            else
-                gas.transform.rotation = new Quaternion(x += yMove/100, y, z, w);
+            if (transform.rotation.x >= 53) ; // to prevent the pedal from flipping around, but doenst work for now
+         //gas.transform.rotation = new Quaternion(x, y, z, w);
+        else
+            gas.transform.rotation = new Quaternion(x += yMove / 100, y, z, w);
     }
 
     void tankMovement(Vector2 position)

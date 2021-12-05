@@ -13,17 +13,31 @@ public class Tank : MonoBehaviour
 
     private GameObject turret;
 
+    public GameObject gas;
+
 
     private float speedCannonBall = 100.0f;
     private float fireRate = 20; // how many time for firing in a second
     // the
     private float lastFireTime;
 
+    // starting rotation of the pedal
+    private float gasOnStartX;
+    private float gasOnStartY;
+    private float gasOnStartZ;
+    private float gasOnStartW;
+
     // Start is called before the first frame update
     void Start()
     {
         turret = mainGun.transform.parent.gameObject;
         Debug.Log(turret.name);
+
+        //starting rotations of the pedal
+        gasOnStartX = gas.transform.rotation.x;
+        gasOnStartY = gas.transform.rotation.y;
+        gasOnStartZ = gas.transform.rotation.z;
+        gasOnStartW = gas.transform.rotation.w;
     }
 
     // Update is called once per frame
@@ -42,6 +56,31 @@ public class Tank : MonoBehaviour
                 Fire(); 
                 // MainGunTurnUp();
                 // MainGunTurnDown();
+            }
+        }
+
+        //myBall = new CreateBalls();
+        string output = string.Empty;
+
+
+        var rightHandedControllers = new List<UnityEngine.XR.InputDevice>();
+        var desiredCharacteristics = UnityEngine.XR.InputDeviceCharacteristics.HeldInHand | UnityEngine.XR.InputDeviceCharacteristics.Right | UnityEngine.XR.InputDeviceCharacteristics.Controller;
+        UnityEngine.XR.InputDevices.GetDevicesWithCharacteristics(desiredCharacteristics, rightHandedControllers);
+
+
+        foreach (var device in rightHandedControllers)
+        {
+            // Vector2 input;
+
+
+            if (device.TryGetFeatureValue(UnityEngine.XR.CommonUsages.primary2DAxis, out Vector2 position))
+            {
+
+                output += "Touchpad/Joystick Position: " + position + "\n";
+                Debug.Log(output);
+                if (position.y != 0)
+                   Gas(position);
+                Pedal(position.y);
             }
         }
     }
@@ -76,14 +115,32 @@ public class Tank : MonoBehaviour
 
     }
 
-    public void Gas()
+    public void Gas(Vector2 position)
     {
+        float x = tank.transform.position.x;
+        float y = tank.transform.position.y;
+        float z = tank.transform.position.z;
+
+        // int gainSpeed = 10;
+        //  while (gainSpeed != 0)
+
+        tank.transform.position = new Vector3(x, y, z += position.y / 8 );
 
     }
 
-    public void Pedal()
+    public void Pedal(float yMove)
     {
-
+        float x = gas.transform.rotation.x;
+        float y = gas.transform.rotation.y;
+        float z = gas.transform.rotation.z;
+        float w = gas.transform.rotation.w;
+        if (yMove == 0)
+            transform.rotation = new Quaternion(gasOnStartX, gasOnStartY, gasOnStartZ, gasOnStartW);
+        else
+            if (transform.rotation.x >= 53) ; // to prevent the pedal from flipping around, but doenst work for now
+                                              //gas.transform.rotation = new Quaternion(x, y, z, w);
+        else
+            gas.transform.rotation = new Quaternion(x += yMove / 100, y, z, w);
     }
 
     public void TurretTurnLeft()
