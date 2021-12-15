@@ -1,9 +1,19 @@
-This is just a unfinished demo and we would like to mainly show our main function include move, trun, fire and basic scenario of driver room.
+This is just a unfinished game demo and we would like to primarily show our main function including moving, turning, firing and basic scene of driver room.
+
+It consists of 4 parts which are
+test if Photon network works
+test if the tank responses properly after we interact with it in the remote driver box
+test if the movement and fire runs well
+test if the skybox change correctly
+Since at this moment we used the same button for firing and changing skybox, so you'll see the firing
+and changing happen simultaneously
+Later we will manage and set up a mapping without conflict
 
 We would like to try all features that you listed in the form.
 At least as much as we that can.
+
 We haven't found a satisfied avatar model so for this moment we just use a cube for testing if we can see each other.
 
-We haven't determined how should we drive and control the gun/connon proper so for this moment we just use the traditional way , the htc vive/oculus button and trigger like our previous assignments did.
+We haven't determined how should we drive and control the gun/cannon proper so for this moment we just use the traditional way, the htc vive/oculus button and trigger like our previous assignments did.
 
 We would try to optimize the room setting more delicated and make more animation and everything as smooth as possible
