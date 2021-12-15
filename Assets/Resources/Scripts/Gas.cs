@@ -10,14 +10,29 @@ public class Gas : MonoBehaviour
     [SerializeField]
     private GameObject gas;
 
+   // public float smoothTime = 5F;
+   // private Vector3 velocity = Vector3.zero;
 
     private float gasOnStartX;
     private float gasOnStartY;
     private float gasOnStartZ;
     private float gasOnStartW;
-    Vector2 Check()
+
+    private float movementY;
+    // Start is called before the first frame update
+    void Start()
     {
-        //myBall = new CreateBalls();
+       // rb = tank.GetComponent<Rigidbody>();
+        gasOnStartX = gas.transform.rotation.x;
+        gasOnStartY = gas.transform.rotation.y;
+        gasOnStartZ = gas.transform.rotation.z;
+        gasOnStartW = gas.transform.rotation.w;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
         string output = string.Empty;
 
 
@@ -28,25 +43,21 @@ public class Gas : MonoBehaviour
 
         foreach (var device in rightHandedControllers)
         {
-           // Vector2 input;
-
-
             if (device.TryGetFeatureValue(UnityEngine.XR.CommonUsages.primary2DAxis, out Vector2 position))
             {
-                
+
                 output += "Touchpad/Joystick Position: " + position + "\n";
                 Debug.Log(output);
+                movementY = position.y;
                 if (position.y != 0)
-                   tankMovement(position);
-                pedalMovement(position.y);
-                return position;
+                    TankMovement(position);
+                PedalMovement(position.y);
             }
         }
-
-        return new Vector2(0, 0);
     }
 
-    void pedalMovement (float yMove)
+
+    void PedalMovement (float yMove)
     {
         float x = gas.transform.rotation.x;
         float y = gas.transform.rotation.y;
@@ -55,43 +66,27 @@ public class Gas : MonoBehaviour
         if (yMove == 0)
             transform.rotation = new Quaternion(gasOnStartX, gasOnStartY, gasOnStartZ, gasOnStartW);
         else
-            if (transform.rotation.x >= 53) ; // to prevent the pedal from flipping around, but doenst work for now
-         //gas.transform.rotation = new Quaternion(x, y, z, w);
-        else
-            gas.transform.rotation = new Quaternion(x += yMove / 100, y, z, w);
+            if (transform.rotation.x >= 53) // to prevent the pedal from flipping around, but doenst work for now
+                Debug.Log("x is bigger than 53");
+            else
+                gas.transform.Rotate(new Vector3(yMove, 0, 0));
     }
 
-    void tankMovement(Vector2 position)
+    void TankMovement(Vector2 position)
     {
-      
-
-        float x = tank.transform.position.x;
-        float y = tank.transform.position.y;
-        float z = tank.transform.position.z;
-
-       // int gainSpeed = 10;
-      //  while (gainSpeed != 0)
+     
+        Debug.Log("MOVEMENT");
+        tank.transform.position += tank.transform.forward * (position.y / 20);
+        /*
+       Vector3 targetPosition = tank.transform.forward * (position.y / 20);
+        Vector3 targetPosition = target.TransformPoint(new Vector3(0, 5, -10));
+        tank.transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
+        */
         
-        tank.transform.position = new Vector3(x, y, z += position.y / 8);
-        Debug.Log("MOVEMENT");   
-       
-
-       
-
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-     gasOnStartX = gas.transform.rotation.x;
-     gasOnStartY = gas.transform.rotation.y;
-     gasOnStartZ = gas.transform.rotation.z;
-     gasOnStartW = gas.transform.rotation.w;
-    }
+   
 
-    // Update is called once per frame
-    void Update()
-    {
-        Check();
-    }
+
+
 }

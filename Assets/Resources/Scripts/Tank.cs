@@ -13,7 +13,23 @@ public class Tank : MonoBehaviour
 
     private GameObject turret;
 
-   // public GameObject gas;
+
+
+    //sticks to control movement
+    private GameObject stickRight;
+    private GameObject stickLeft;
+
+    private Quaternion startstickRightRotation;
+    private Quaternion startstickLeftRotation;
+
+    // gas pedal, its rotation 
+    public GameObject gas;
+    // starting rotation of the pedal
+    private float gasOnStartX;
+    private float gasOnStartY;
+    private float gasOnStartZ;
+    private float gasOnStartW;
+
 
 
     private float speedCannonBall = 100.0f;
@@ -21,11 +37,7 @@ public class Tank : MonoBehaviour
     // the
     private float lastFireTime;
 
-    // starting rotation of the pedal
-    private float gasOnStartX;
-    private float gasOnStartY;
-    private float gasOnStartZ;
-    private float gasOnStartW;
+
 
     // Start is called before the first frame update
     void Start()
@@ -34,18 +46,29 @@ public class Tank : MonoBehaviour
         Debug.Log(turret.name);
         particleSystemManager = GameObject.Find("ParticleSystemManager");
 
-        /*
+        
         //starting rotations of the pedal
         gasOnStartX = gas.transform.rotation.x;
         gasOnStartY = gas.transform.rotation.y;
         gasOnStartZ = gas.transform.rotation.z;
         gasOnStartW = gas.transform.rotation.w;
-        */
+
+        //sticks
+        stickRight = GameObject.Find("CylinderRight");
+        stickLeft = GameObject.Find("CylinderLeft");
+        startstickRightRotation = stickRight.transform.rotation;
+        startstickLeftRotation = stickLeft.transform.rotation;
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        var leftHandedControllers = new List<UnityEngine.XR.InputDevice>();
+        var desiredCharacteristics = UnityEngine.XR.InputDeviceCharacteristics.HeldInHand | UnityEngine.XR.InputDeviceCharacteristics.Left | UnityEngine.XR.InputDeviceCharacteristics.Controller;
+        UnityEngine.XR.InputDevices.GetDevicesWithCharacteristics(desiredCharacteristics, leftHandedControllers);
+
+
         // these should be written in Controller.cs in the future but now for testing quickly just here
         var inputDevices = new List<UnityEngine.XR.InputDevice>();
         UnityEngine.XR.InputDevices.GetDevices(inputDevices);
@@ -63,22 +86,23 @@ public class Tank : MonoBehaviour
             }
         }
 
-        foreach (var device in inputDevices)
+        foreach (var device in leftHandedControllers)
         {
-            
+
             if (device.TryGetFeatureValue(UnityEngine.XR.CommonUsages.primary2DAxis, out primary2DAxis))
             {
                 //Debug.Log(primary2DAxis);
                 if (primary2DAxis.x > -1.0f && primary2DAxis.x < -0.5f && primary2DAxis.y > -0.3f && primary2DAxis.y < 0.3f)
                 {
                     TurretTurnRight();
-                    
+
                 }
-                else if(primary2DAxis.x > 0.5f && primary2DAxis.x < 1.0f && primary2DAxis.y > -0.3f && primary2DAxis.y < 0.3f)
+                else if (primary2DAxis.x > 0.5f && primary2DAxis.x < 1.0f && primary2DAxis.y > -0.3f && primary2DAxis.y < 0.3f)
                 {
                     TurretTurnLeft();
                 }
                 else if (primary2DAxis.x > -0.3f && primary2DAxis.x < 0.3f && primary2DAxis.y > 0.5f && primary2DAxis.y < 1.0f)
+
                 {
                     MainGunTurnDown();
                     Debug.Log("Down");
@@ -92,33 +116,107 @@ public class Tank : MonoBehaviour
             }
         }
 
-        /*
-        //myBall = new CreateBalls();
-        /*
-        string output = string.Empty;
+
+            string output = string.Empty;
 
 
+            var rightHandedControllers = new List<UnityEngine.XR.InputDevice>();
+            desiredCharacteristics = UnityEngine.XR.InputDeviceCharacteristics.HeldInHand | UnityEngine.XR.InputDeviceCharacteristics.Right | UnityEngine.XR.InputDeviceCharacteristics.Controller;
+            UnityEngine.XR.InputDevices.GetDevicesWithCharacteristics(desiredCharacteristics, rightHandedControllers);
+
+
+         foreach (var device in rightHandedControllers)
+            {
+               if (device.TryGetFeatureValue(UnityEngine.XR.CommonUsages.primary2DAxis, out Vector2 position))
+                  {
+
+                   output += "Touchpad/Joystick Position: " + position + "\n";
+                   Debug.Log(output);
+                   if (position.y != 0)
+                        TankMovement(position);
+                   PedalMovement(position.y);
+                   }
+            }
+
+
+        if (stickRight.transform.rotation.x != startstickRightRotation.x)
+        {
+            float y = stickRight.transform.rotation.x;
+            if (y < 0 && y > -50)
+                //if (onMoving)
+                 tankRotation(y * -1);
+
+        }
+
+        if (stickLeft.transform.rotation.x != startstickLeftRotation.x)
+        {
+            float y = stickLeft.transform.rotation.x;
+            if (y < 0 && y > -50)
+                tankRotation(y);
+
+        }
+    }
+
+
+    bool CheckPrimaryButton()
+    {
         var rightHandedControllers = new List<UnityEngine.XR.InputDevice>();
         var desiredCharacteristics = UnityEngine.XR.InputDeviceCharacteristics.HeldInHand | UnityEngine.XR.InputDeviceCharacteristics.Right | UnityEngine.XR.InputDeviceCharacteristics.Controller;
         UnityEngine.XR.InputDevices.GetDevicesWithCharacteristics(desiredCharacteristics, rightHandedControllers);
 
 
+
         foreach (var device in rightHandedControllers)
         {
-            // Vector2 input;
-
-
             if (device.TryGetFeatureValue(UnityEngine.XR.CommonUsages.primary2DAxis, out Vector2 position))
             {
 
-                output += "Touchpad/Joystick Position: " + position + "\n";
-                Debug.Log(output);
-                if (position.y != 0) ;
-                  // Gas(position);
-                //Pedal(position.y);
+
+                if (position.y != 0)
+                    return true;
+                return false;
             }
-        */
+            //return false;
+        }
+        return false;
     }
+
+    void TankMovement(Vector2 position)
+    {
+        Debug.Log("MOVEMENT");
+        tank.transform.position += tank.transform.forward * (position.y / 8);
+        /*
+       Vector3 targetPosition = tank.transform.forward * (position.y / 20);
+        Vector3 targetPosition = target.TransformPoint(new Vector3(0, 5, -10));
+        tank.transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
+        */
+
+    }
+
+    void tankRotation(float y)
+    {
+        if (CheckPrimaryButton()) // tank should rotate only if gas is pressed. only if tank is moving
+        tank.transform.Rotate(new Vector3(0, y, 0));
+   
+    }
+
+
+    void PedalMovement(float yMove)
+    {
+        float x = gas.transform.rotation.x;
+        float y = gas.transform.rotation.y;
+        float z = gas.transform.rotation.z;
+        float w = gas.transform.rotation.w;
+        if (yMove == 0)
+            gas.transform.rotation = new Quaternion(gasOnStartX, gasOnStartY, gasOnStartZ, gasOnStartW);
+        else
+            if (gas.transform.rotation.x >= 53) // to prevent the pedal from flipping around, but doenst work for now
+            Debug.Log("x is bigger than 53");
+        else
+            gas.transform.Rotate(new Vector3(yMove, 0, 0));
+    }
+
+
     public bool isAllowFire()
     {
 
@@ -150,36 +248,7 @@ public class Tank : MonoBehaviour
 
     }
 
-    /*
-    public void Gas(Vector2 position)
-    {
-        float x = tank.transform.position.x;
-        float y = tank.transform.position.y;
-        float z = tank.transform.position.z;
 
-        // int gainSpeed = 10;
-        //  while (gainSpeed != 0)
-
-        tank.transform.position = new Vector3(x, y, z += position.y / 8 );
-
-    }
-
-    public void Pedal(float yMove)
-    {
-        float x = gas.transform.rotation.x;
-        float y = gas.transform.rotation.y;
-        float z = gas.transform.rotation.z;
-        float w = gas.transform.rotation.w;
-        if (yMove == 0)
-            transform.rotation = new Quaternion(gasOnStartX, gasOnStartY, gasOnStartZ, gasOnStartW);
-        else
-            if (transform.rotation.x >= 53) ; // to prevent the pedal from flipping around, but doenst work for now
-                                              //gas.transform.rotation = new Quaternion(x, y, z, w);
-        else
-            gas.transform.rotation = new Quaternion(x += yMove / 100, y, z, w);
-    }
-
-    */
 
     public void TurretTurnLeft()
     {
