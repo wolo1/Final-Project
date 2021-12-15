@@ -15,6 +15,7 @@ public class SpawnWall : MonoBehaviour
     public int amountOfBoxes;
 
     private GameObject wall;
+    public GameObject wallManager;
 
     [SerializeField]
     private Material material;
@@ -47,6 +48,7 @@ public class SpawnWall : MonoBehaviour
                 z = 5;
                 y += addY;
                 GameObject myCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                
                 myCube.transform.localScale = new Vector3(0.06f, 0.12f, 0.25f);
                 myCube.transform.position = new Vector3(0, y, z);
                 myCube.gameObject.GetComponent<Renderer>().material = material;
