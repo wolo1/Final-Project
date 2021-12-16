@@ -15,8 +15,9 @@ public class TerrainController : MonoBehaviour {
     public Vector3 TerrainSize { get { return terrainSize; } }
     [SerializeField]
     private Gradient gradient;
-    [SerializeField]
-    private float noiseScale = 3, cellSize = 1;
+    
+   
+    public float noiseScale = 3, cellSize = 1;
     [SerializeField]
     private int radiusToRender = 5;
     [SerializeField]
