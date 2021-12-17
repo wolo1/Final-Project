@@ -12,7 +12,9 @@ public class Tank : MonoBehaviour
     public GameObject cannonBall;
 
     private GameObject turret;
+    private GameObject aimingSystem;
 
+    private float currentAngle = 0.0f; // limit up down rotate range +14 ~ -6
 
 
     //sticks to control movement
@@ -44,8 +46,9 @@ public class Tank : MonoBehaviour
     {
         turret = mainGun.transform.parent.gameObject;
         particleSystemManager = GameObject.Find("ParticleSystemManager");
+        aimingSystem = GameObject.Find("AimingSystem");
 
-        
+
         //starting rotations of the pedal
         gasOnStartX = gas.transform.rotation.x;
         gasOnStartY = gas.transform.rotation.y;
@@ -79,7 +82,7 @@ public class Tank : MonoBehaviour
             if (device.TryGetFeatureValue(UnityEngine.XR.CommonUsages.triggerButton, out triggerValue) && triggerValue)
             {
                 Debug.Log("Trigger button is pressed.");
-                Fire(); 
+                Fire();
                 // MainGunTurnUp();
                 // MainGunTurnDown();
             }
@@ -222,10 +225,89 @@ public class Tank : MonoBehaviour
         return (Time.time - lastFireTime > 1 / fireRate);
     }
 
+    public void HapticFeedbackRightFire()
+    {
+        List<UnityEngine.XR.InputDevice> devices = new List<UnityEngine.XR.InputDevice>();
+
+        UnityEngine.XR.InputDevices.GetDevicesWithRole(UnityEngine.XR.InputDeviceRole.RightHanded, devices);
+        foreach (var device in devices)
+        {
+            UnityEngine.XR.HapticCapabilities capabilities;
+            if (device.TryGetHapticCapabilities(out capabilities))
+            {
+                if (capabilities.supportsImpulse)
+                {
+                    device.SendHapticImpulse(0, 0.2f, 0.2f);
+                }
+            }
+        }
+
+    }
+
+    public void HapticFeedbackLeftFire()
+    {
+        List<UnityEngine.XR.InputDevice> devices = new List<UnityEngine.XR.InputDevice>();
+
+        UnityEngine.XR.InputDevices.GetDevicesWithRole(UnityEngine.XR.InputDeviceRole.LeftHanded, devices);
+        foreach (var device in devices)
+        {
+            UnityEngine.XR.HapticCapabilities capabilities;
+            if (device.TryGetHapticCapabilities(out capabilities))
+            {
+                if (capabilities.supportsImpulse)
+                {
+                    device.SendHapticImpulse(0, 0.2f, 0.2f);
+                }
+            }
+        }
+
+    }
+
+    public void HapticFeedbackRightRotate()
+    {
+        List<UnityEngine.XR.InputDevice> devices = new List<UnityEngine.XR.InputDevice>();
+
+        UnityEngine.XR.InputDevices.GetDevicesWithRole(UnityEngine.XR.InputDeviceRole.LeftHanded, devices);
+        foreach (var device in devices)
+        {
+            UnityEngine.XR.HapticCapabilities capabilities;
+            if (device.TryGetHapticCapabilities(out capabilities))
+            {
+                if (capabilities.supportsImpulse)
+                {
+                    device.SendHapticImpulse(0, 0.1f, 0.1f);
+                }
+            }
+        }
+
+    }
+
+    public void HapticFeedbackLeftRotate()
+    {
+        List<UnityEngine.XR.InputDevice> devices = new List<UnityEngine.XR.InputDevice>();
+
+        UnityEngine.XR.InputDevices.GetDevicesWithRole(UnityEngine.XR.InputDeviceRole.LeftHanded, devices);
+        foreach (var device in devices)
+        {
+            UnityEngine.XR.HapticCapabilities capabilities;
+            if (device.TryGetHapticCapabilities(out capabilities))
+            {
+                if (capabilities.supportsImpulse)
+                {
+                    device.SendHapticImpulse(0, 0.1f, 0.1f);
+                }
+            }
+        }
+
+    }
+
+
     public void Fire()
     {
         if (isAllowFire())
         {
+            HapticFeedbackLeftFire();
+            HapticFeedbackRightFire();
             Vector3 firePosition = mainGun.transform.position + new Vector3(0.0f, 0.0f, 6.1f);
 
             audioData.Play(0);
@@ -252,29 +334,40 @@ public class Tank : MonoBehaviour
     public void TurretTurnLeft()
     {
         turret.transform.localEulerAngles += new Vector3(0.0f, 0.5f, 0.0f);
+        HapticFeedbackLeftRotate();
+        HapticFeedbackRightRotate();
     }
 
     public void TurretTurnRight()
     {
         turret.transform.localEulerAngles += new Vector3(0.0f, -0.5f, 0.0f);
+        HapticFeedbackLeftRotate();
+        HapticFeedbackRightRotate();
     }
 
     public void MainGunTurnUp()
     {
-        if (mainGun.transform.localEulerAngles.x > 346.0f || mainGun.transform.localEulerAngles.x < 6.1f)
+
+        if (currentAngle <= 6.0f)
         {
-            mainGun.transform.localEulerAngles += new Vector3(-0.5f, 0.0f, 0.0f);
+            mainGun.transform.localEulerAngles += new Vector3(0.1f, 0.0f, 0.0f);
+            currentAngle += 0.1f;
+            aimingSystem.transform.position -= new Vector3(0.0f, 0.0004f, 0.0f);
+            HapticFeedbackLeftRotate();
+            HapticFeedbackRightRotate();
         }
-        Debug.Log(mainGun.transform.localEulerAngles.x);
     }
 
     public void MainGunTurnDown()
     {
-        if (mainGun.transform.localEulerAngles.x > 346.0f || mainGun.transform.localEulerAngles.x < 6.1f)
+        if(currentAngle >= -14.0f)
         {
-            mainGun.transform.localEulerAngles += new Vector3(0.5f, 0.0f, 0.0f);
+            mainGun.transform.localEulerAngles += new Vector3(-0.1f, 0.0f, 0.0f);
+            currentAngle -= 0.1f;
+            aimingSystem.transform.position += new Vector3(0.0f, 0.0004f, 0.0f);
+            HapticFeedbackLeftRotate();
+            HapticFeedbackRightRotate();
         }
-        Debug.Log(mainGun.transform.localEulerAngles.x);
     }
 
 }
