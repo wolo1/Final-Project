@@ -32,7 +32,6 @@ public class CannonBall : MonoBehaviour
             {
                 Destroy(can);
             }
-            Debug.Log(collision.transform.name);
         }
     }
 }

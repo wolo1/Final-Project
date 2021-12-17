@@ -26,6 +26,6 @@ public class Player : MonoBehaviourPun
                 camera.transform.position.z);
             Username.GetComponent<TextMeshProUGUI>().text = PlayerPrefs.GetString("Username");
         }
-        this.transform.localEulerAngles = camera.transform.localEulerAngles;
+        this.transform.localEulerAngles = new Vector3(0.0f, camera.transform.localEulerAngles.y, camera.transform.localEulerAngles.z);
     }
 }

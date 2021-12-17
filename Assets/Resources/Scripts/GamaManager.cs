@@ -2,6 +2,7 @@ using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR.Management;
 
 public class GamaManager : MonoBehaviourPunCallbacks
 {
@@ -50,7 +51,7 @@ public class GamaManager : MonoBehaviourPunCallbacks
         //var tk = GameObject.Instantiate(this.tank, new Vector3(-10.3f, 8.9f, -10.26f), Quaternion.identity);
        // tk.transform.localEulerAngles = new Vector3(0.0f, 0.0f, 0.0f);
         Connect();
-
+        XRGeneralSettings.Instance.Manager.InitializeLoader();
     }
 
     #endregion

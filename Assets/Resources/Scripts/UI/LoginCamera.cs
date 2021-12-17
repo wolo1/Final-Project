@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.XR.Management;
 
 public class LoginCamera : MonoBehaviour
 {
@@ -15,7 +16,6 @@ public class LoginCamera : MonoBehaviour
     {
         Button btn = Login.GetComponent<Button>();
         btn.onClick.AddListener(OnClick);
-
     }
 
     // Update is called once per frame
@@ -33,7 +33,6 @@ public class LoginCamera : MonoBehaviour
         }
         else
         {
-            Debug.Log(Username.text);
 
             // pass Username to main game
             PlayerPrefs.SetString("Username", Username.text);
