@@ -34,6 +34,9 @@ public class LoginCamera : MonoBehaviour
         else
         {
             Debug.Log(Username.text);
+
+            // pass Username to main game
+            PlayerPrefs.SetString("Username", Username.text);
             Application.LoadLevel("Main");
         }
     }

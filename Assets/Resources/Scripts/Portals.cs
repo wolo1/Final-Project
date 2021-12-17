@@ -10,7 +10,6 @@ public class Portals : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.transform.name);
         int index = -1;
 
         if (listPortalsA.IndexOf(this.gameObject) != -1)

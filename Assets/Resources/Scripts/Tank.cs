@@ -43,7 +43,6 @@ public class Tank : MonoBehaviour
     void Start()
     {
         turret = mainGun.transform.parent.gameObject;
-        Debug.Log(turret.name);
         particleSystemManager = GameObject.Find("ParticleSystemManager");
 
         
