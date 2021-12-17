@@ -17,6 +17,7 @@ public class ToDriver : MonoBehaviour
         driverposition = GameObject.Find("DriverPos");
 
         transform.position = driverposition.transform.position;
+        transform.parent = GameObject.Find("DriverBox").transform;
 
     }
     // Update is called once per frame

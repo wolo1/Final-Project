@@ -17,8 +17,8 @@ public class ChangeTerrainFlatness : MonoBehaviour
     public void ChangeFlatness ()
     {
       
-            GameObject thePlayer = GameObject.Find("XRRig");
-            var terrainScript = thePlayer.GetComponent<TerrainController>();
+            GameObject tank = GameObject.Find("T90LP Green");
+            var terrainScript = tank.GetComponent<TerrainController>();
             terrainScript.cellSize = slider.value;
         
     }
