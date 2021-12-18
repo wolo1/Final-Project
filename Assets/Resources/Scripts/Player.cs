@@ -13,7 +13,6 @@ public class Player : MonoBehaviourPun
     {
         camera = GameObject.Find("Main Camera");
         //this.transform.parent = camera.transform;
-        
     }
 
     // Update is called once per frame

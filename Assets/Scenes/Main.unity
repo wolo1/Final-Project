@@ -69339,6 +69339,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 91002617, guid: cb4fd6a623385fb4fb454f9e6c5c6cbd, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 222334119, guid: cb4fd6a623385fb4fb454f9e6c5c6cbd, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 563988888, guid: cb4fd6a623385fb4fb454f9e6c5c6cbd, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 867327327, guid: cb4fd6a623385fb4fb454f9e6c5c6cbd, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 867327328, guid: cb4fd6a623385fb4fb454f9e6c5c6cbd, type: 3}
       propertyPath: m_UseGravity
       value: 1
@@ -69347,6 +69363,10 @@ PrefabInstance:
       propertyPath: gas
       value: 
       objectReference: {fileID: 900500447}
+    - target: {fileID: 1575272444, guid: cb4fd6a623385fb4fb454f9e6c5c6cbd, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1153684337135672, guid: cb4fd6a623385fb4fb454f9e6c5c6cbd, type: 3}
       propertyPath: m_Name
       value: T90LP Green
@@ -69407,7 +69427,7 @@ PrefabInstance:
     - target: {fileID: 7055230758405093964, guid: cb4fd6a623385fb4fb454f9e6c5c6cbd,
         type: 3}
       propertyPath: OwnershipTransfer
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7055230758405093964, guid: cb4fd6a623385fb4fb454f9e6c5c6cbd,
         type: 3}
@@ -69447,6 +69467,7 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 7862470306993548790, guid: cb4fd6a623385fb4fb454f9e6c5c6cbd, type: 3}
     - {fileID: 8430849239553571553, guid: cb4fd6a623385fb4fb454f9e6c5c6cbd, type: 3}
+    - {fileID: 2655352720391257084, guid: cb4fd6a623385fb4fb454f9e6c5c6cbd, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: cb4fd6a623385fb4fb454f9e6c5c6cbd, type: 3}
 --- !u!1 &1822357077
 GameObject:
@@ -72052,6 +72073,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1818840817}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1886939010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1886939008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff4f2d83faf61e64091b071e9810c803, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1886939012
 MonoBehaviour:
   m_ObjectHideFlags: 0

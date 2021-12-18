@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class Tank : MonoBehaviour
+public class Tank : MonoBehaviourPun
 {
     public GameObject tank;
     public GameObject particleSystemManager;
@@ -44,6 +45,7 @@ public class Tank : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         turret = mainGun.transform.parent.gameObject;
         particleSystemManager = GameObject.Find("ParticleSystemManager");
         aimingSystem = GameObject.Find("AimingSystem");
@@ -62,7 +64,6 @@ public class Tank : MonoBehaviour
         startstickLeftRotation = stickLeft.transform.rotation;
 
     }
-
     // Update is called once per frame
     void Update()
     {
@@ -185,7 +186,9 @@ public class Tank : MonoBehaviour
 
     void TankMovement(Vector2 position)
     {
-        Debug.Log("MOVEMENT");
+        // Debug.Log("MOVEMENT");
+
+        this.photonView.TransferOwnership(PhotonNetwork.LocalPlayer); // access the tank ownership
         tank.transform.position += tank.transform.forward * (position.y / 8);
         /*
        Vector3 targetPosition = tank.transform.forward * (position.y / 20);
@@ -197,8 +200,13 @@ public class Tank : MonoBehaviour
 
     void tankRotation(float y)
     {
-        if (CheckPrimaryButton()) // tank should rotate only if gas is pressed. only if tank is moving
-        tank.transform.Rotate(new Vector3(0, y, 0));
+        if (CheckPrimaryButton())// tank should rotate only if gas is pressed. only if tank is moving
+        {
+            this.photonView.TransferOwnership(PhotonNetwork.LocalPlayer); // access the tank ownership
+
+            tank.transform.Rotate(new Vector3(0, y, 0));
+        }
+
    
     }
 
@@ -306,6 +314,8 @@ public class Tank : MonoBehaviour
     {
         if (isAllowFire())
         {
+            this.photonView.TransferOwnership(PhotonNetwork.LocalPlayer); // access the tank ownership
+
             HapticFeedbackLeftFire();
             HapticFeedbackRightFire();
             Vector3 firePosition = mainGun.transform.position + new Vector3(0.0f, 0.0f, 6.1f);
@@ -333,6 +343,8 @@ public class Tank : MonoBehaviour
 
     public void TurretTurnLeft()
     {
+        this.photonView.TransferOwnership(PhotonNetwork.LocalPlayer); // access the tank ownership
+
         turret.transform.localEulerAngles += new Vector3(0.0f, 0.5f, 0.0f);
         HapticFeedbackLeftRotate();
         HapticFeedbackRightRotate();
@@ -340,6 +352,8 @@ public class Tank : MonoBehaviour
 
     public void TurretTurnRight()
     {
+        this.photonView.TransferOwnership(PhotonNetwork.LocalPlayer); // access the tank ownership
+
         turret.transform.localEulerAngles += new Vector3(0.0f, -0.5f, 0.0f);
         HapticFeedbackLeftRotate();
         HapticFeedbackRightRotate();
@@ -350,6 +364,8 @@ public class Tank : MonoBehaviour
 
         if (currentAngle <= 6.0f)
         {
+            this.photonView.TransferOwnership(PhotonNetwork.LocalPlayer); // access the tank ownership
+
             mainGun.transform.localEulerAngles += new Vector3(0.1f, 0.0f, 0.0f);
             currentAngle += 0.1f;
             aimingSystem.transform.position -= new Vector3(0.0f, 0.0004f, 0.0f);
@@ -362,6 +378,8 @@ public class Tank : MonoBehaviour
     {
         if(currentAngle >= -14.0f)
         {
+            this.photonView.TransferOwnership(PhotonNetwork.LocalPlayer); // access the tank ownership
+
             mainGun.transform.localEulerAngles += new Vector3(-0.1f, 0.0f, 0.0f);
             currentAngle -= 0.1f;
             aimingSystem.transform.position += new Vector3(0.0f, 0.0004f, 0.0f);
