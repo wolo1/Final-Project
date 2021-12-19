@@ -32,7 +32,7 @@ public class CannonBall : MonoBehaviourPun
             
             foreach (var can in GameObject.FindGameObjectsWithTag("cannonBall"))
             {
-                PhotonNetwork.Destroy(can);
+                //PhotonNetwork.Destroy(can);
             }
         }
     }

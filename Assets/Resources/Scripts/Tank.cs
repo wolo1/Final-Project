@@ -322,13 +322,13 @@ public class Tank : MonoBehaviourPun
 
             audioData.Play(0);
             var explosionPar = PhotonNetwork.Instantiate("sprite_realExplosion_c_example", particleSystemManager.transform.position, Quaternion.identity, 0);
-            //var explosionPar = GameObject.Instantiate(explosion, particleSystemManager.transform.position, Quaternion.identity, particleSystemManager.transform);
+            // var explosionPar = GameObject.Instantiate(explosion, particleSystemManager.transform.position, Quaternion.identity, particleSystemManager.transform);
             explosionPar.transform.tag = "explosion";
             explosionPar.GetComponent<ParticleSystem>().Play();
             
 
-           // var cannonBallTem = GameObject.Instantiate(cannonBall, particleSystemManager.transform.position,
-            //    Quaternion.Euler(90.0f, 0.0f, 0.0f), mainGun.transform);
+            // var cannonBallTem = GameObject.Instantiate(cannonBall, particleSystemManager.transform.position,
+            // Quaternion.Euler(90.0f, 0.0f, 0.0f), mainGun.transform);
 
             var cannonBallTem = PhotonNetwork.Instantiate("CannonBall", particleSystemManager.transform.position,
                Quaternion.Euler(90.0f, 0.0f, 0.0f), 0);
