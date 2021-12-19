@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class CannonBall : MonoBehaviour
+public class CannonBall : MonoBehaviourPun
 {
     public GameObject explosion;
     private GameObject particleSystemManager;
@@ -22,7 +23,8 @@ public class CannonBall : MonoBehaviour
     {
         if (collision.transform.name != "Cube.018" && collision.transform.name != "sprite_realExplosion_c_example")
         {
-            var explosionPar = GameObject.Instantiate(explosion, collision.transform.position, Quaternion.identity, particleSystemManager.transform);
+            // var explosionPar = GameObject.Instantiate(explosion, collision.transform.position, Quaternion.identity, particleSystemManager.transform);
+            var explosionPar = PhotonNetwork.Instantiate("sprite_realExplosion_c_example", collision.transform.position, Quaternion.identity, 0);
             explosionPar.transform.tag = "explosion";
 
             explosionPar.GetComponent<ParticleSystem>().Play();
@@ -30,7 +32,7 @@ public class CannonBall : MonoBehaviour
             
             foreach (var can in GameObject.FindGameObjectsWithTag("cannonBall"))
             {
-                Destroy(can);
+                PhotonNetwork.Destroy(can);
             }
         }
     }
