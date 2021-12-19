@@ -89,36 +89,39 @@ public class Tank : MonoBehaviourPun
             }
         }
 
-        foreach (var device in leftHandedControllers)
+
+        if (!PhotonNetwork.IsMasterClient)
         {
-
-            if (device.TryGetFeatureValue(UnityEngine.XR.CommonUsages.primary2DAxis, out primary2DAxis))
+            foreach (var device in leftHandedControllers)
             {
-                //Debug.Log(primary2DAxis);
-                if (primary2DAxis.x > -1.0f && primary2DAxis.x < -0.5f && primary2DAxis.y > -0.3f && primary2DAxis.y < 0.3f)
+
+                if (device.TryGetFeatureValue(UnityEngine.XR.CommonUsages.primary2DAxis, out primary2DAxis))
                 {
-                    TurretTurnRight();
+                    //Debug.Log(primary2DAxis);
+                    if (primary2DAxis.x > -1.0f && primary2DAxis.x < -0.5f && primary2DAxis.y > -0.3f && primary2DAxis.y < 0.3f)
+                    {
+                        TurretTurnRight();
+
+                    }
+                    else if (primary2DAxis.x > 0.5f && primary2DAxis.x < 1.0f && primary2DAxis.y > -0.3f && primary2DAxis.y < 0.3f)
+                    {
+                        TurretTurnLeft();
+                    }
+                    else if (primary2DAxis.x > -0.3f && primary2DAxis.x < 0.3f && primary2DAxis.y > 0.5f && primary2DAxis.y < 1.0f)
+
+                    {
+                        MainGunTurnDown();
+                        Debug.Log("Down");
+                    }
+                    else if (primary2DAxis.x > -0.3f && primary2DAxis.x < 0.3f && primary2DAxis.y > -1.0f && primary2DAxis.y < -0.5f)
+                    {
+                        MainGunTurnUp();
+                        Debug.Log("Up");
+                    }
 
                 }
-                else if (primary2DAxis.x > 0.5f && primary2DAxis.x < 1.0f && primary2DAxis.y > -0.3f && primary2DAxis.y < 0.3f)
-                {
-                    TurretTurnLeft();
-                }
-                else if (primary2DAxis.x > -0.3f && primary2DAxis.x < 0.3f && primary2DAxis.y > 0.5f && primary2DAxis.y < 1.0f)
-
-                {
-                    MainGunTurnDown();
-                    Debug.Log("Down");
-                }
-                else if (primary2DAxis.x > -0.3f && primary2DAxis.x < 0.3f && primary2DAxis.y > -1.0f && primary2DAxis.y < -0.5f)
-                {
-                    MainGunTurnUp();
-                    Debug.Log("Up");
-                }
-
             }
         }
-
 
             string output = string.Empty;
 

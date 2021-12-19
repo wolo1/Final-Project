@@ -23,16 +23,19 @@ public class CannonBall : MonoBehaviourPun
     {
         if (collision.transform.name != "Cube.018" && collision.transform.name != "sprite_realExplosion_c_example")
         {
-            // var explosionPar = GameObject.Instantiate(explosion, collision.transform.position, Quaternion.identity, particleSystemManager.transform);
-            var explosionPar = PhotonNetwork.Instantiate("sprite_realExplosion_c_example", collision.transform.position, Quaternion.identity, 0);
-            explosionPar.transform.tag = "explosion";
-
-            explosionPar.GetComponent<ParticleSystem>().Play();
-            // audio play;
-            
-            foreach (var can in GameObject.FindGameObjectsWithTag("cannonBall"))
+            if (!PhotonNetwork.IsMasterClient)
             {
-                //PhotonNetwork.Destroy(can);
+                // var explosionPar = GameObject.Instantiate(explosion, collision.transform.position, Quaternion.identity, particleSystemManager.transform);
+                var explosionPar = PhotonNetwork.Instantiate("sprite_realExplosion_c_example", collision.transform.position, Quaternion.identity, 0);
+                explosionPar.transform.tag = "explosion";
+
+                explosionPar.GetComponent<ParticleSystem>().Play();
+                // audio play;
+
+                foreach (var can in GameObject.FindGameObjectsWithTag("cannonBall"))
+                {
+                    PhotonNetwork.Destroy(can);
+                }
             }
         }
     }

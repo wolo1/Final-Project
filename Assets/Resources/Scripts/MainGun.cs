@@ -15,7 +15,10 @@ public class MainGun : MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
-
+        if (!PhotonNetwork.IsMasterClient)
+        {
+            this.photonView.TransferOwnership(PhotonNetwork.LocalPlayer);
+        }
     }
 
     public void ChangeTowerOwnership()

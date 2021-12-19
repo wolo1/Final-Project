@@ -16,6 +16,7 @@ public class ParticleAutoDestruction : MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
+
         bool allStopped = true;
 
         foreach (ParticleSystem ps in particleSystems)
@@ -28,9 +29,17 @@ public class ParticleAutoDestruction : MonoBehaviourPun
 
         if (allStopped)
         {
+            if (!PhotonNetwork.IsMasterClient)
+            {
+                foreach (var can in GameObject.FindGameObjectsWithTag("explosion"))
+                {
+                    PhotonNetwork.Destroy(gameObject);
+                }
+                
+            }
             //if (this.photonView)
             //{
-                //this.photonView.TransferOwnership(PhotonNetwork.LocalPlayer);
+            //this.photonView.TransferOwnership(PhotonNetwork.LocalPlayer);
             //}
             //PhotonNetwork.Destroy(gameObject);
             //Destroy(gameObject);
