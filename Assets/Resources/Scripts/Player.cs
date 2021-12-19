@@ -22,7 +22,7 @@ public class Player : MonoBehaviourPun
         {
             this.transform.position = new Vector3(camera.transform.position.x,
                 camera.transform.position.y - 0.7f,
-                camera.transform.position.z);
+                camera.transform.position.z - 0.3f);
             this.transform.localEulerAngles = new Vector3(0.0f, camera.transform.localEulerAngles.y, camera.transform.localEulerAngles.z);
             Username.GetComponent<TextMeshProUGUI>().text = PlayerPrefs.GetString("Username");
         }
