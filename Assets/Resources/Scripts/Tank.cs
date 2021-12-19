@@ -371,7 +371,7 @@ public class Tank : MonoBehaviourPun
 
         if (currentAngle <= 6.0f)
         {
-            turret.GetComponent<MainGun>().ChangeTowerOwnership(); // access the tank ownership
+            turret.GetComponent<MainGun>().ChangeTubeOwnership(); // access the tank ownership
 
             mainGun.transform.localEulerAngles += new Vector3(0.1f, 0.0f, 0.0f);
             currentAngle += 0.1f;
@@ -385,7 +385,7 @@ public class Tank : MonoBehaviourPun
     {
         if(currentAngle >= -14.0f)
         {
-            turret.GetComponent<MainGun>().ChangeTowerOwnership(); // access the tank ownership
+            turret.GetComponent<MainGun>().ChangeTubeOwnership(); // access the tank ownership
 
             mainGun.transform.localEulerAngles += new Vector3(-0.1f, 0.0f, 0.0f);
             currentAngle -= 0.1f;
