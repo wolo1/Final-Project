@@ -25,6 +25,7 @@ public class Menu : MonoBehaviour
             if (device.TryGetFeatureValue(UnityEngine.XR.CommonUsages.primaryButton, out triggerValue) && triggerValue)
             {
                 transform.position = new Vector3(0f, 3f, 0f);
+                transform.parent = GameObject.Find("Menuplace").transform;
                 Debug.Log("button is pressed");
             }
         }

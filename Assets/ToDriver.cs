@@ -9,7 +9,10 @@ public class ToDriver : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        driverposition = GameObject.Find("DriverPos");
+
+        transform.position = driverposition.transform.position;
+        transform.parent = GameObject.Find("DriverBox").transform;
     }
 
     public void MoveToDriver()
