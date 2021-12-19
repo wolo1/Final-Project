@@ -1,11 +1,14 @@
 Supporting both HTC Vive and Oculus
 
-for first join(create) the game will be the driver
-He/She can drive the tank
-move forward and back by touching the Axis2D button up and down area
-grip----
+The player who joins(creates) the game first, will be the driver.
+The host can drive the tank:
+	move forward and back by pressing the Axis2D button(right hand) up and down.
+	to grab sticks using vr hands. Press grip button to grabb.
+Second joining player will be gunner. He is no able to drive the tank.
 
-for second join... 
-He....
-rotate...
-fire...
+The player can shoot:
+	rotate the tower, move the tower up and down by pressing the Axis2D button(left hand) in appropriate directions. 
+	use trigger button to shoot
+
+To open setting menu press Primary button on the left hand. By using vr rays you can interact with the board. 
+Press trigger button to select. Click "Driver" to come back to the box.
