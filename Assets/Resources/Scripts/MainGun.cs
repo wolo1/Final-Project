@@ -18,10 +18,13 @@ public class MainGun : MonoBehaviourPun
 
     }
 
-    public void ChangeOwnership()
+    public void ChangeTowerOwnership()
     {
         this.photonView.TransferOwnership(PhotonNetwork.LocalPlayer);
     }
 
-
+    public void ChangeTubeOwnership()
+    {
+        this.photonView.TransferOwnership(PhotonNetwork.LocalPlayer);
+    }
 }

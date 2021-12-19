@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class ParticleAutoDestruction : MonoBehaviour
 {
@@ -27,7 +28,8 @@ public class ParticleAutoDestruction : MonoBehaviour
 
         if (allStopped)
         {
-            Destroy(gameObject);
+            PhotonNetwork.Destroy(gameObject);
+            //Destroy(gameObject);
         }
 
     }
