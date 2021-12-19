@@ -321,12 +321,19 @@ public class Tank : MonoBehaviourPun
             Vector3 firePosition = mainGun.transform.position + new Vector3(0.0f, 0.0f, 6.1f);
 
             audioData.Play(0);
-            //GameObject.Instantiate()
+            //var explosionPar = PhotonNetwork.Instantiate(explosion.name, particleSystemManager.transform.position, Quaternion.identity, 0);
             var explosionPar = GameObject.Instantiate(explosion, particleSystemManager.transform.position, Quaternion.identity, particleSystemManager.transform);
             explosionPar.transform.tag = "explosion";
             explosionPar.GetComponent<ParticleSystem>().Play();
+            
+
             var cannonBallTem = GameObject.Instantiate(cannonBall, particleSystemManager.transform.position,
                 Quaternion.Euler(90.0f, 0.0f, 0.0f), mainGun.transform);
+
+            //var cannonBallTem = PhotonNetwork.Instantiate(cannonBall.name, particleSystemManager.transform.position,
+            //    Quaternion.Euler(90.0f, 0.0f, 0.0f), 0);
+
+
             cannonBallTem.transform.tag = "cannonBall";
             cannonBallTem.GetComponent<Rigidbody>().velocity = particleSystemManager.transform.forward * speedCannonBall;
             tank.GetComponent<Rigidbody>().velocity = (particleSystemManager.transform.forward + new Vector3(0.0f, 0.5f, 0.0f)) * -5.0f;
@@ -343,7 +350,7 @@ public class Tank : MonoBehaviourPun
 
     public void TurretTurnLeft()
     {
-        this.photonView.TransferOwnership(PhotonNetwork.LocalPlayer); // access the tank ownership
+        turret.GetComponent<MainGun>().ChangeOwnership(); // access the tank ownership
 
         turret.transform.localEulerAngles += new Vector3(0.0f, 0.5f, 0.0f);
         HapticFeedbackLeftRotate();
@@ -352,8 +359,8 @@ public class Tank : MonoBehaviourPun
 
     public void TurretTurnRight()
     {
-        this.photonView.TransferOwnership(PhotonNetwork.LocalPlayer); // access the tank ownership
-
+        turret.GetComponent<MainGun>().ChangeOwnership(); // access the tank ownership
+        
         turret.transform.localEulerAngles += new Vector3(0.0f, -0.5f, 0.0f);
         HapticFeedbackLeftRotate();
         HapticFeedbackRightRotate();
@@ -364,7 +371,7 @@ public class Tank : MonoBehaviourPun
 
         if (currentAngle <= 6.0f)
         {
-            this.photonView.TransferOwnership(PhotonNetwork.LocalPlayer); // access the tank ownership
+            turret.GetComponent<MainGun>().ChangeOwnership(); // access the tank ownership
 
             mainGun.transform.localEulerAngles += new Vector3(0.1f, 0.0f, 0.0f);
             currentAngle += 0.1f;
@@ -378,7 +385,7 @@ public class Tank : MonoBehaviourPun
     {
         if(currentAngle >= -14.0f)
         {
-            this.photonView.TransferOwnership(PhotonNetwork.LocalPlayer); // access the tank ownership
+            turret.GetComponent<MainGun>().ChangeOwnership(); // access the tank ownership
 
             mainGun.transform.localEulerAngles += new Vector3(-0.1f, 0.0f, 0.0f);
             currentAngle -= 0.1f;

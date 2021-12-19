@@ -12,19 +12,16 @@ public class MainGun : MonoBehaviourPun
         //this.photonView.TransferOwnership(.gameObject.GetComponent<PhotonView>().Owner);
     }
 
-    private void Awake()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {
-        if (PhotonNetwork.IsMasterClient)
-        {
-            
-            Debug.Log(PhotonNetwork.LocalPlayer);
-        }
-        Debug.Log(PhotonNetwork.CountOfPlayers);
+
     }
+
+    public void ChangeOwnership()
+    {
+        this.photonView.TransferOwnership(PhotonNetwork.LocalPlayer);
+    }
+
+
 }
