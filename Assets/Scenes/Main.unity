@@ -20395,7 +20395,6 @@ GameObject:
   - component: {fileID: 541096548}
   - component: {fileID: 541096552}
   - component: {fileID: 541096550}
-  - component: {fileID: 541096553}
   - component: {fileID: 541096554}
   m_Layer: 0
   m_Name: RightController
@@ -20801,19 +20800,6 @@ MonoBehaviour:
   sceneViewId: 3
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!65 &541096553
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 541096545}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 0.15710545, y: 0.14821625, z: 0.22746277}
-  m_Center: {x: -0.0004277931, y: 0.014368057, z: 0.07269043}
 --- !u!114 &541096554
 MonoBehaviour:
   m_ObjectHideFlags: 0
