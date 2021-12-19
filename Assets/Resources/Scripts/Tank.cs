@@ -77,18 +77,22 @@ public class Tank : MonoBehaviourPun
         UnityEngine.XR.InputDevices.GetDevices(inputDevices);
         bool triggerValue;
         Vector2 primary2DAxis;
-        
-        foreach (var device in inputDevices)
-        {
-            if (device.TryGetFeatureValue(UnityEngine.XR.CommonUsages.triggerButton, out triggerValue) && triggerValue)
-            {
-                Debug.Log("Trigger button is pressed.");
-                Fire();
-                // MainGunTurnUp();
-                // MainGunTurnDown();
-            }
-        }
 
+        if (!PhotonNetwork.IsMasterClient)
+        {
+
+            foreach (var device in inputDevices)
+            {
+                if (device.TryGetFeatureValue(UnityEngine.XR.CommonUsages.triggerButton, out triggerValue) && triggerValue)
+                {
+                    Debug.Log("Trigger button is pressed.");
+                    Fire();
+                    // MainGunTurnUp();
+                    // MainGunTurnDown();
+                }
+            }
+
+        }
 
         if (!PhotonNetwork.IsMasterClient)
         {
