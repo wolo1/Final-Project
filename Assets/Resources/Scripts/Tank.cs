@@ -40,7 +40,7 @@ public class Tank : MonoBehaviourPun
     // the
     private float lastFireTime;
 
-
+    private List<GameObject> wheels = new List<GameObject>();
 
     // Start is called before the first frame update
     void Start()
@@ -62,6 +62,16 @@ public class Tank : MonoBehaviourPun
         stickLeft = GameObject.Find("CylinderLeft");
         startstickRightRotation = stickRight.transform.rotation;
         startstickLeftRotation = stickLeft.transform.rotation;
+
+        //first find the wheels
+        GameObject wheel;
+        int count = 15;
+        while (count >= 0)
+        {
+            wheel = this.transform.GetChild(count).gameObject;
+            wheels.Add(wheel);
+            count--;
+        }
 
     }
     // Update is called once per frame
@@ -143,7 +153,11 @@ public class Tank : MonoBehaviourPun
                    output += "Touchpad/Joystick Position: " + position + "\n";
                    Debug.Log(output);
                    if (position.y != 0)
-                        TankMovement(position);
+                {
+                    TankMovement(position);
+                    WheelsRotation(position.y);
+                }
+                       
                    PedalMovement(position.y);
                    }
             }
@@ -402,4 +416,13 @@ public class Tank : MonoBehaviourPun
         }
     }
 
+
+    void WheelsRotation(float x)
+    {
+        foreach (GameObject wheel in wheels)
+        {
+            wheel.transform.Rotate(new Vector3(x, 0, 0));
+        }
+
+    }
 }

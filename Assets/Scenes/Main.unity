@@ -34452,8 +34452,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8317f77d8366d540b5177ac6c1fac5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tank: {fileID: 722227718}
-  gas: {fileID: 900500447}
 --- !u!54 &900500453
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -69318,6 +69316,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4941909789013550, guid: cb4fd6a623385fb4fb454f9e6c5c6cbd, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.22000027
+      objectReference: {fileID: 0}
+    - target: {fileID: 4941909789013550, guid: cb4fd6a623385fb4fb454f9e6c5c6cbd, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.39900017
+      objectReference: {fileID: 0}
     - target: {fileID: 4955077662473162, guid: cb4fd6a623385fb4fb454f9e6c5c6cbd, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -69361,6 +69367,11 @@ PrefabInstance:
     - target: {fileID: 4955077662473162, guid: cb4fd6a623385fb4fb454f9e6c5c6cbd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 95318301278825196, guid: cb4fd6a623385fb4fb454f9e6c5c6cbd,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 95318301278825196, guid: cb4fd6a623385fb4fb454f9e6c5c6cbd,
         type: 3}
