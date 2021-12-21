@@ -17,7 +17,7 @@ public class ChangeSky : MonoBehaviour
     
     // Start is called before the first frame update
     
-    void Start()
+    void OnEnable()
     {
        
 
@@ -25,7 +25,6 @@ public class ChangeSky : MonoBehaviour
         {
             toggles.Add(child.GetComponent<Toggle>());
         }
-          
    
         ValueChanged();
     }

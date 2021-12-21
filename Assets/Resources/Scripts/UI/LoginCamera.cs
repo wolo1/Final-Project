@@ -6,16 +6,11 @@ using UnityEngine.XR.Management;
 
 public class LoginCamera : MonoBehaviour
 {
-    
-    public InputField Username;
-    public Text Hint;
-    public Button Login;
 
     // Start is called before the first frame update
     void Start()
     {
-        Button btn = Login.GetComponent<Button>();
-        btn.onClick.AddListener(OnClick);
+        
     }
 
     // Update is called once per frame
@@ -25,19 +20,18 @@ public class LoginCamera : MonoBehaviour
     }
 
 
-    public void OnClick()
+    public void DriverJoin()
     {
-        if (Username.text == "")
-        {
-
-        }
-        else
-        {
-
-            // pass Username to main game
-            PlayerPrefs.SetString("Username", Username.text);
-            Application.LoadLevel("Main");
-        }
+        PlayerPrefs.SetInt("Role", 0);
+        Application.LoadLevel("Main");
     }
+
+    public void GunnerJoin()
+    {
+        PlayerPrefs.SetInt("Role", 1);
+        Application.LoadLevel("Main");
+    }
+
+
 
 }

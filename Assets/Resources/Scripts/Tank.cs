@@ -88,7 +88,7 @@ public class Tank : MonoBehaviourPun
         bool triggerValue;
         Vector2 primary2DAxis;
 
-        if (!PhotonNetwork.IsMasterClient)
+        if (mainGun.GetComponent<MainGun>().isGunner == 1)
         {
 
             foreach (var device in inputDevices)
@@ -104,7 +104,7 @@ public class Tank : MonoBehaviourPun
 
         }
 
-        if (!PhotonNetwork.IsMasterClient)
+        if (mainGun.GetComponent<MainGun>().isGunner == 1)
         {
             foreach (var device in leftHandedControllers)
             {
@@ -145,22 +145,25 @@ public class Tank : MonoBehaviourPun
             UnityEngine.XR.InputDevices.GetDevicesWithCharacteristics(desiredCharacteristics, rightHandedControllers);
 
 
-         foreach (var device in rightHandedControllers)
+        if (mainGun.GetComponent<MainGun>().isGunner == 0)
+        {
+            foreach (var device in rightHandedControllers)
             {
-               if (device.TryGetFeatureValue(UnityEngine.XR.CommonUsages.primary2DAxis, out Vector2 position))
-                  {
-
-                   output += "Touchpad/Joystick Position: " + position + "\n";
-                   Debug.Log(output);
-                   if (position.y != 0)
+                if (device.TryGetFeatureValue(UnityEngine.XR.CommonUsages.primary2DAxis, out Vector2 position))
                 {
-                    TankMovement(position);
-                    WheelsRotation(position.y);
+
+                    output += "Touchpad/Joystick Position: " + position + "\n";
+                    Debug.Log(output);
+                    if (position.y != 0)
+                    {
+                        TankMovement(position);
+                        WheelsRotation(position.y);
+                    }
+
+                    PedalMovement(position.y);
                 }
-                       
-                   PedalMovement(position.y);
-                   }
             }
+        }
 
 
         if (stickRight.transform.rotation.x != startstickRightRotation.x)

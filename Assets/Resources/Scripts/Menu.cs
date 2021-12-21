@@ -22,7 +22,7 @@ public class Menu : MonoBehaviour
         {
             bool triggerValue = true;
 
-            if (device.TryGetFeatureValue(UnityEngine.XR.CommonUsages.primaryButton, out triggerValue) && triggerValue)
+            if (device.TryGetFeatureValue(UnityEngine.XR.CommonUsages.menuButton, out triggerValue) && triggerValue)
             {
                 transform.position = new Vector3(0f, 3f, 0f);
                 transform.parent = GameObject.Find("Menuplace").transform;
