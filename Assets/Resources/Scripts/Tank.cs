@@ -95,7 +95,7 @@ public class Tank : MonoBehaviourPun
             {
                 if (device.TryGetFeatureValue(UnityEngine.XR.CommonUsages.triggerButton, out triggerValue) && triggerValue)
                 {
-                    Debug.Log("Trigger button is pressed.");
+                    // Debug.Log("Trigger button is pressed.");
                     Fire();
                     // MainGunTurnUp();
                     // MainGunTurnDown();
@@ -153,11 +153,11 @@ public class Tank : MonoBehaviourPun
                 {
 
                     output += "Touchpad/Joystick Position: " + position + "\n";
-                    Debug.Log(output);
+                    // Debug.Log(output);
                     if (position.y != 0)
                     {
                         TankMovement(position);
-                        WheelsRotation(position.y);
+                        WheelsRotation(position.y * 5.0f);
                     }
 
                     PedalMovement(position.y);
@@ -172,7 +172,6 @@ public class Tank : MonoBehaviourPun
             if (y < 0 && y > -50)
                 //if (onMoving)
                  tankRotation(y * -1);
-
         }
 
         if (stickLeft.transform.rotation.x != startstickLeftRotation.x)
@@ -349,7 +348,8 @@ public class Tank : MonoBehaviourPun
             // var explosionPar = GameObject.Instantiate(explosion, particleSystemManager.transform.position, Quaternion.identity, particleSystemManager.transform);
             explosionPar.transform.tag = "explosion";
             explosionPar.GetComponent<ParticleSystem>().Play();
-            
+            explosionPar.transform.parent = GameObject.Find("ParticleSystemManager").transform;
+
 
             // var cannonBallTem = GameObject.Instantiate(cannonBall, particleSystemManager.transform.position,
             // Quaternion.Euler(90.0f, 0.0f, 0.0f), mainGun.transform);

@@ -33,7 +33,7 @@ public class ParticleAutoDestruction : MonoBehaviourPun
             {
                 foreach (var can in GameObject.FindGameObjectsWithTag("explosion"))
                 {
-                    PhotonNetwork.Destroy(gameObject);
+                    // PhotonNetwork.Destroy(gameObject);
                 }
                 
             }

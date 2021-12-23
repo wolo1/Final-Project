@@ -15,13 +15,13 @@ public class Portals : MonoBehaviour
         if (listPortalsA.IndexOf(this.gameObject) != -1)
         {
             index = listPortalsA.IndexOf(this.gameObject);
-            other.transform.position = listPortalsB[index].transform.position + new Vector3(0.0f, 0.0f, 10.0f);
+            other.transform.position = listPortalsB[index].transform.position + new Vector3(0.0f, 0.0f, 30.0f);
         }
 
         else if (listPortalsB.IndexOf(this.gameObject) != -1)
         {
             index = listPortalsB.IndexOf(this.gameObject);
-            other.transform.position = listPortalsA[index].transform.position + new Vector3(0.0f, 0.0f, 10.0f);
+            other.transform.position = listPortalsA[index].transform.position + new Vector3(0.0f, 0.0f, 30.0f);
         }
 
         else

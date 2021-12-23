@@ -11,7 +11,7 @@ public class Fog : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        RenderSettings.fog = fogToggle.isOn;
     }
 
    public void ChangeValue()
